@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface PortfolioProps {
-  images: { src: string; alt: string; size?: "large" | "small" }[];
+  images: { src: string; alt: string; size?: "large" | "small"; category: string }[];
 }
 
 const categories = ["All", "Ceremony", "Portraits", "Details", "Reception"];
@@ -35,11 +35,10 @@ export function Portfolio({ images }: PortfolioProps) {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`font-['Jost'] tracking-widest uppercase transition-colors duration-200 pb-1 cursor-pointer ${
-                  activeCategory === cat
+                className={`font-['Jost'] tracking-widest uppercase transition-colors duration-200 pb-1 cursor-pointer ${activeCategory === cat
                     ? "text-stone-800 border-b border-stone-800"
                     : "text-stone-400 hover:text-stone-600"
-                }`}
+                  }`}
                 style={{ fontSize: "0.7rem", letterSpacing: "0.2em" }}
               >
                 {cat}
@@ -50,24 +49,24 @@ export function Portfolio({ images }: PortfolioProps) {
 
         {/* Masonry-style Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-          {images.map((img, idx) => (
-            <div
-              key={idx}
-              className={`overflow-hidden cursor-pointer group ${
-                img.size === "large" ? "md:row-span-2" : ""
-              }`}
-              onClick={() => setLightbox(img.src)}
-            >
+          {images
+            .filter((img) => activeCategory === "All" || img.category === activeCategory)
+            .map((img, idx) => (
               <div
-                className={`w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105 ${
-                  img.size === "large" ? "aspect-[3/4] md:aspect-square md:h-full" : "aspect-square"
-                }`}
-                style={{ backgroundImage: `url(${img.src})` }}
-                role="img"
-                aria-label={img.alt}
-              />
-            </div>
-          ))}
+                key={idx}
+                className={`overflow-hidden cursor-pointer group ${img.size === "large" ? "md:row-span-2" : ""
+                  }`}
+                onClick={() => setLightbox(img.src)}
+              >
+                <div
+                  className={`w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105 ${img.size === "large" ? "aspect-[3/4] md:aspect-square md:h-full" : "aspect-square"
+                    }`}
+                  style={{ backgroundImage: `url(${img.src})` }}
+                  role="img"
+                  aria-label={img.alt}
+                />
+              </div>
+            ))}
         </div>
 
         {/* Lightbox */}
