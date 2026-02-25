@@ -6,29 +6,29 @@ const testimonials = [
     quote:
       "Thokozani has a rare gift — she disappears into the day and reappears with photographs that are nothing short of poetry. Our wedding album makes us cry every single time.",
     name: "Sophie & James",
-    location: "Florence, Italy",
+    location: "Nelspruit, Mpumalanga, South Africa",
     date: "June 2024",
   },
   {
     quote:
       "We can't believe how perfectly Thokozani captured every emotion. She is so warm and unobtrusive, yet somehow she was everywhere at the right moment. These photos are our most treasured possessions.",
     name: "Natasha & Luca",
-    location: "Santorini, Greece",
+    location: "Kwazulu-Natal, South Africa",
     date: "September 2024",
   },
   {
     quote:
       "From our first call, we knew Thokozani was the one. She understood exactly what we wanted — timeless, emotional, real. The photos exceeded every expectation we had.",
     name: "Claire & Michael",
-    location: "Napa Valley, California",
-    date: "October 2023",
+    location: "Herb and Vine, Gauteng, South Africa",
+    date: "October 2026",
   },
   {
     quote:
       "Every photo tells a story we didn't even know was happening. Thokozani's eye for light, emotion, and detail is extraordinary. We are forever grateful for her artistry.",
     name: "Amara & David",
-    location: "Cape Town, South Africa",
-    date: "March 2024",
+    location: "Lake Umuzi, Mpumalanga, South Africa",
+    date: "March 2025",
   },
 ];
 
