@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Phone, MapPin, Instagram, Facebook } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Facebook, Youtube } from "lucide-react";
 
 export function Contact() {
   const [form, setForm] = useState({
@@ -116,11 +116,15 @@ export function Contact() {
               </p>
               <div className="flex gap-4">
                 {[
-                  { icon: <Instagram size={18} />, label: "@stillsbythokozani" },
-                  { icon: <Facebook size={18} />, label: "stillsbythokoxani" },
+                  { icon: <Instagram size={18} />, label: "@stillsbythokozani", href: "https://instagram.com/stillsbythokozani" },
+                  { icon: <Facebook size={18} />, label: "stillsbythokoxani", href: "https://facebook.com/stillsbythokoxani" },
+                  { icon: <Youtube size={18} />, label: "stillsbythokozani", href: "https://www.youtube.com/@ThokozaniMtshali47" },
                 ].map((s) => (
-                  <button
+                  <a
                     key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-2 text-stone-400 hover:text-stone-700 transition-colors duration-200 cursor-pointer"
                   >
                     {s.icon}
@@ -130,7 +134,7 @@ export function Contact() {
                     >
                       {s.label}
                     </span>
-                  </button>
+                  </a>
                 ))}
               </div>
             </div>
