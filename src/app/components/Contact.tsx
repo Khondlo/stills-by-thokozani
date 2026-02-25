@@ -10,14 +10,44 @@ export function Contact() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch("https://formspree.io/f/xykdozjk", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setForm({ name: "", email: "", date: "", venue: "", message: "" });
+      } else {
+        const data = await response.json();
+        if (Object.hasOwn(data, 'errors')) {
+          setError(data["errors"].map((err: any) => err["message"]).join(", "));
+        } else {
+          setError("Oops! There was a problem submitting your form");
+        }
+      }
+    } catch (err) {
+      setError("Oops! There was a problem submitting your form");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -231,12 +261,18 @@ export function Contact() {
                 </div>
 
                 <div className="pt-4">
+                  {error && (
+                    <p className="font-['Jost'] text-red-800/80 mb-4" style={{ fontSize: "0.85rem" }}>
+                      {error}
+                    </p>
+                  )}
                   <button
                     type="submit"
-                    className="w-full sm:w-auto bg-stone-800 text-white px-12 py-4 font-['Jost'] tracking-widest hover:bg-stone-700 transition-colors duration-300 cursor-pointer"
+                    disabled={isSubmitting}
+                    className="w-full sm:w-auto bg-stone-800 text-white px-12 py-4 font-['Jost'] tracking-widest hover:bg-stone-700 transition-colors duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ fontSize: "0.7rem", letterSpacing: "0.25em", textTransform: "uppercase" }}
                   >
-                    Send Inquiry
+                    {isSubmitting ? "Sending..." : "Send Inquiry"}
                   </button>
                 </div>
               </form>
